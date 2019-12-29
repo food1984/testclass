@@ -54,30 +54,26 @@ jobs:
       - run:
           name: create package
           command: |
-            python setup.py build
+            pip install --upgrade setuptools wheel
+            python setup.py sdist bdist_wheel
             VERSION=$(python setup.py --version)
 
       - persist_to_workspace:
-          root: packages
+          root: build
           paths:
-          - ./build
+          - .
 
   publish:
     docker:
-      - image: circleci/golang:1.12
+      - image: cibuilds/github:0.10
     steps:
-      - checkout
       - attach_workspace:
           at: packages
-      - run:
-          name: install ght
-          command: |
-            go get github.com/tcnksm/ghr
 
       - run:
           name: publish package
           command: |
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION}
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./packages
 
 workflows:
   version: 2
