@@ -73,7 +73,9 @@ jobs:
       - run:
           name: publish package
           command: |
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./packages
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} \
+            -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} \
+            -delete ${VERSION} "release-${VERSION}" ./packages
 
 workflows:
   version: 2
