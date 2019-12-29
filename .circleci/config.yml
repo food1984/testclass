@@ -57,10 +57,26 @@ jobs:
             python setup.py build
             VERSION=$(python setup.py --version)
 
+      - persist_to_workspace:
+          root: packages
+          paths:
+          - ./build
+
+  publish:
+    docker:
+      - image: circleci/golang:1.12
+    steps:
+      - checkout
+      - attach_workspace:
+          at: packages
+      - run:
+          name: install ght
+          command: |
+            go get github.com/tcnksm/ghr
+
       - run:
           name: publish package
           command: |
-            go get github.com/tcnksm/ghr
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION}
 
 workflows:
@@ -68,3 +84,9 @@ workflows:
   build-deploy:
     jobs:
       - build
+      - publish:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
