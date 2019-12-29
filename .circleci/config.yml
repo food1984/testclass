@@ -56,7 +56,7 @@ jobs:
           command: |
             pip install --user --upgrade setuptools wheel
             python setup.py sdist bdist_wheel
-            VERSION=$(python setup.py --version)
+            python setup.py --version >build/version.txt
 
       - persist_to_workspace:
           root: build
@@ -75,7 +75,7 @@ jobs:
           command: |
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} \
             -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} \
-            -delete ${VERSION} "release-${VERSION}" ./packages
+            -delete ${VERSION} "release-$(cat build/version.txt)" ./packages
 
 workflows:
   version: 2
