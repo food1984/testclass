@@ -68,8 +68,10 @@ jobs:
       - image: cibuilds/github:0.10
     steps:
       - attach_workspace:
-          at: packages
-
+          at: ./packages
+      - run:
+          name: list packages
+          command: ls -l ./packages
       - run:
           name: publish package
           command: |
