@@ -1,11 +1,22 @@
 from setuptools import setup
+import pkutils
 
-setup(name='testclass',
-      version='0.1',
-      description='Use to test request, respones',
+
+requirements = list(pkutils.parse_requirements('requirements.txt'))
+readme = pkutils.read('README.md')
+module = pkutils.parse_module('testclass/__init__.py')
+packages = [module.__title__]
+
+setup(
+      name=module.__title__,
+      version=module.__version__,
+      description=module.__description__,
+      long_description=readme,
       url='http://github.com/erikdeirdre/testclass',
-      author='Peter White',
-      author_email='pwhite@delpwhite.org',
-      license='MIT',
-      packages=['testclass'],
-      zip_safe=False)
+      author=module.__author__,
+      author_email=module.__email,
+      license=module.__license__,
+      install_requires=requirements,
+      packages=packages,
+      zip_safe=False
+      )

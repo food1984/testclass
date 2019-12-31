@@ -45,6 +45,7 @@ jobs:
             coverage html --omit=/usr/local/lib*
             python-codacy-coverage -r test-results/coverage.xml
 
+
       - store_test_results:
           path: test-results
 
@@ -54,7 +55,7 @@ jobs:
       - run:
           name: create package
           command: |
-            pip install --user --upgrade setuptools wheel
+            pip install --user --upgrade setuptools wheel pkutils
             python setup.py sdist bdist_wheel
             python setup.py --version >build/version.txt
 
