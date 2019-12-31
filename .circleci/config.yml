@@ -61,7 +61,7 @@ jobs:
             ls -l
 
       - persist_to_workspace:
-          root: build
+          root: dist
           paths:
           - .
 
