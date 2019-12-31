@@ -57,7 +57,8 @@ jobs:
           command: |
             pip install --user --upgrade setuptools wheel pkutils
             python setup.py sdist bdist_wheel
-            python setup.py --version >build/version.txt
+            python setup.py --version >dist/version.txt
+            ls -l
 
       - persist_to_workspace:
           root: build
@@ -73,6 +74,7 @@ jobs:
       - run:
           name: publish package
           command: |
+            ls -l
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} \
             -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} \
             -delete ${VERSION} "release-$(cat packages/version.txt)" ./packages
