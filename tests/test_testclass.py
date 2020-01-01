@@ -53,13 +53,13 @@ class TestTestClass(unittest.TestCase):
         test_name = 'test_one'
         test = TestClass(dir_name, test_name)
         test.load_files()
-        self.assertEqual(dir_name, test._dir_name,
+        self.assertEqual(dir_name, test.get_dir_name(),
                          "Directory name doesn't match")
-        self.assertEqual(test_name, test._test_name,
+        self.assertEqual(test_name, test.get_test_name(),
                          "Test name doesn't match")
-        self.assertEqual(test_request, test._expected_result,
+        self.assertEqual(test_request, test.get_expected_result(),
                          "Expected results doesn't match")
-        self.assertEqual(test_send, test._send_request,
+        self.assertEqual(test_send, test.get_send_request(),
                          "Send request doesn't match")
 
 

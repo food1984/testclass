@@ -1,7 +1,3 @@
-# Python CircleCI 2.1 configuration file
-#
-# Check https://circleci.com/docs/2.1/language-python/ for more details
-#
 version: 2.1
 
 jobs:
@@ -73,7 +69,6 @@ jobs:
       - run:
           name: publish package
           command: |
-            ls -l 
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} \
             -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} \
             -delete ${VERSION} "release-$(cat packages/version.txt)" ./packages
