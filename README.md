@@ -9,6 +9,3 @@ A test class to help with response, request, and expected results
 The class accepts 'text' and 'json' based files for storing response and request messages.
 
 The files are located in files/'test name' with expected response named 'expected_results'.{file type}. Send request messages named 'send_request'.{file type}.
-
-
-###
