@@ -42,14 +42,15 @@ jobs:
       env:
         CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
       run: |
-        python-codacy-coverage -r test-results/coverage.xml    
+#        python-codacy-coverage -r test-results/coverage.xml
+        echo "CODACY"
+        echo ${CODACY_PROJECT_TOKEN}
     
     - name: create package
       run: |
           pip install --user --upgrade setuptools wheel pkutils
           python setup.py sdist bdist_wheel
           python setup.py --version >dist/version.txt
-          ls -l ./dist
 
     - name: publish package to github as a release
       id: create_release
@@ -58,8 +59,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         VERSION: 1.1.0
       with:
-        tag_name: v${VERSION}
-        release_name: release-${VERSION}
+        tag_name: release-1.1.0
         body: |
           Changes in this Release
           - First Change
