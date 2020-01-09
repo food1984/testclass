@@ -58,8 +58,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         VERSION: $(cat dist/version.txt)
       with:
-        tag_name: release-$(cat dist/version.txt)
-        release_name: release-$(cat dist/version.txt)
+        tag_name: release-1.1.0
+        release_name: release-1.1.0
         body: |
           Changes in this Release
           - First Change
