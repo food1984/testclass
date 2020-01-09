@@ -9,7 +9,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.6, 3.7]
+        python-version: [3.7]
 
     steps:
     - uses: actions/checkout@v1
@@ -51,12 +51,6 @@ jobs:
           python setup.py --version >dist/version.txt
           cat dist/version.txt
 
-    - name: version number
-      env:
-        VERSION_NBR: $(cat dist/version.txt)
-      run: |
-          echo $VERSION_NBR
-        
     - name: publish package to github as a release
       id: create_release
       uses: actions/create-release@v1
@@ -64,8 +58,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         VERSION: $(cat dist/version.txt)
       with:
-        tag_name: release-${VERSION}
-        release_name: release-${VERSION}
+        tag_name: release-$(cat dist/version.txt)
+        release_name: release-$(cat dist/version.txt)
         body: |
           Changes in this Release
           - First Change
