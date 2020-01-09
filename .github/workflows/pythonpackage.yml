@@ -49,15 +49,17 @@ jobs:
           pip install --user --upgrade setuptools wheel pkutils
           python setup.py sdist bdist_wheel
           python setup.py --version >dist/version.txt
+          ls -l
 
     - name: publish package to github as a release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        VERSION: v1
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        tag_name: release-${{ VERSION }}
+        release_name: release-${{ VERSION }}
         body: |
           Changes in this Release
           - First Change
