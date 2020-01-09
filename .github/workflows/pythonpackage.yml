@@ -58,8 +58,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         VERSION: v1
       with:
-        tag_name: release-${{ env.VERSION }}
-        release_name: release-${{ env.VERSION }}
+        tag_name: release-${VERSION}
+        release_name: release-${VERSION}
         body: |
           Changes in this Release
           - First Change
