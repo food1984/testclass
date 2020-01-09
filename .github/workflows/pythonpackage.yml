@@ -45,7 +45,6 @@ jobs:
       run: |
         echo "CODACY"
         echo ${VERSION}
-        echo $VERSION
         echo ${{ VERSION }}
     
     - name: create package
