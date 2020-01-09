@@ -53,8 +53,7 @@ jobs:
 
     - name: publish package to github as a release
       id: create_release
-      uses:
-         - actions/create-release@v1
+      uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         VERSION: $(cat dist/version.txt)
