@@ -49,8 +49,14 @@ jobs:
           pip install --user --upgrade setuptools wheel pkutils
           python setup.py sdist bdist_wheel
           python setup.py --version >dist/version.txt
-          ls -l
+          cat dist/version.txt
 
+    - name: version number
+      env:
+        VERSION_NBR: $(cat dist/version.txt)
+      run: |
+          echo $VERSION_NBR
+        
     - name: publish package to github as a release
       id: create_release
       uses: actions/create-release@v1
