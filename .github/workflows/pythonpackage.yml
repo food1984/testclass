@@ -42,15 +42,14 @@ jobs:
       env:
         CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
       run: |
-#        python-codacy-coverage -r test-results/coverage.xml
         echo "CODACY"
         echo ${CODACY_PROJECT_TOKEN}
     
     - name: create package
       run: |
-          pip install --user --upgrade setuptools wheel pkutils
-          python setup.py sdist bdist_wheel
-          python setup.py --version >dist/version.txt
+        pip install --user --upgrade setuptools wheel pkutils
+        python setup.py sdist bdist_wheel
+        python setup.py --version >dist/version.txt
 
     - name: publish package to github as a release
       id: create_release
