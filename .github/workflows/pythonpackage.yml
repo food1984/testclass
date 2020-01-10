@@ -55,12 +55,18 @@ jobs:
         python setup.py --version >dist/version.txt
         ls -l ./dist
 
+    - name: test variable
+      env:
+        VERSION: ${{ (cat dist/version.txt) }}
+      run: |
+        echo "version: $VERSION"
+
     - name: publish package to github as a release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        VERSION: $(cat dist/version.txt)
+        VERSION: 1.1.0
       with:
         tag_name: "release-$VERSION"
         release_name: "release-$VERSION"
@@ -76,8 +82,9 @@ jobs:
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        VERSION: 1.1.0
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: ./dist/testclass-*
+        asset_path: ./dist/testclass-${{ VERSION }}.tar.gz
         asset_name: testclass_package
         asset_content_type: application/zip
