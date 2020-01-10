@@ -57,6 +57,13 @@ jobs:
     - name: set version
       run: echo ::set-env name=VERSION::$(cat dist/version.txt)
 
+    - name: test release
+      env:
+        RELEASE: "release-${{ env.VERSION }}"
+      run: |
+        echo "release: ${{ env.RELEASE }}"
+        echo "release2: $RELEASE"
+        
     - name: publish package to github as a release
       id: create_release
       uses: actions/create-release@v1
