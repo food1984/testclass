@@ -54,6 +54,7 @@ jobs:
         python setup.py sdist bdist_wheel
         echo ::set-env name=VERSION::$(python setup.py --version)
         echo ::set-env name=RELEASE::release-$(python setup.py --version)
+        echo ::set-env name=ASSET_PATH::./dist/testclass-$(python setup.py --version).tar.gz
 
     - name: publish package to github as a release
       id: create_release
@@ -77,6 +78,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: ./dist/testclass-$VERSION.tar.gz
+        asset_path: $ASSET_PATH
         asset_name: testclass_package
         asset_content_type: application/zip
