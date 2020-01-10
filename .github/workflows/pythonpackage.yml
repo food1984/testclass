@@ -32,6 +32,7 @@ jobs:
       run: |
         pip install -r test_requirements.txt
         coverage run -m pytest --junitxml=test-results/test-results.xml
+        
     - name: Generate reports
       run: |
         coverage report
@@ -44,9 +45,9 @@ jobs:
         VERSION: 1.1.0
       run: |
         echo "CODACY"
-        echo ${VERSION}
-        echo ${{VERSION}}
-    
+        echo "$VERSION"
+        python-codacy-coverage -r test-results/coverage.xml
+
     - name: create package
       run: |
         pip install --user --upgrade setuptools wheel pkutils

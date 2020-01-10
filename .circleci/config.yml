@@ -69,11 +69,8 @@ jobs:
       - run:
           name: publish package
           command: |
-            echo "token: ${GITHUB_TOKEN}"
-            echo "sha: ${CIRCLE_SHA1}"
-            echo "circle tag: ${CIRCLE_TAG}"
-            ls -l packages
             VERSION="release-$(cat packages/version.txt)"
+            echo "user: ${CIRCLE_PROJECT_USERNAME}"
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} \
             -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} \
             -delete ${VERSION} ${VERSION} ./packages
