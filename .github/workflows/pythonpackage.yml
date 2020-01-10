@@ -52,30 +52,17 @@ jobs:
       run: |
         pip install --user --upgrade setuptools wheel pkutils
         python setup.py sdist bdist_wheel
-        python setup.py --version >dist/version.txt
-
-    - name: set version and release
-      run: |
-        echo ::set-env name=VERSION::$(cat dist/version.txt)
-        echo ::set-env name=RELEASE::$(echo "release-$VERSION")
-        echo "release-$VERSION"
-        echo ::set-env name=RELEASE::release-$(cat dist/version.txt)
-        echo $RELEASE
-        echo ${{ env.RELEASE }}
-    - name: test release
-      run: |
-        echo "release: ${{ env.VERSION }}"
-        echo "release2: $RELEASE"
+        echo ::set-env name=VERSION::$(python setup.py --version)
+        echo ::set-env name=RELEASE::release-$(python setup.py --version)
 
     - name: publish package to github as a release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        RELEASE: "release-${{ env.VERSION }}"
       with:
-        tag_name: ${{ env.RELEASE }}
-        release_name: ${{ env.RELEASE }}
+        tag_name: $RELEASE
+        release_name: $RELEASE
         body: |
           Changes in this Release
           - First Change
@@ -90,6 +77,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: ./dist/testclass-${{ env.VERSION }}.tar.gz
+        asset_path: ./dist/testclass-$VERSION.tar.gz
         asset_name: testclass_package
         asset_content_type: application/zip
