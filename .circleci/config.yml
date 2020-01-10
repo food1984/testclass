@@ -71,8 +71,8 @@ jobs:
           command: |
             TAG="release-$(cat packages/version.txt)"
             echo "Tag: ${TAG}"
-            echo "Version: ${VERSION}"
             VERSION=${TAG}
+            echo "Version: ${VERSION}"
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} \
             -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} \
             -delete ${VERSION} ${TAG} ./packages
