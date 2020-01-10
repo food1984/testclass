@@ -57,7 +57,7 @@ jobs:
 
     - name: test variable
       env:
-        VERSION: ${{ (cat dist/version.txt) }}
+        VERSION: ${{ cat dist/version.txt }}
       run: |
         echo "version: $VERSION"
 
