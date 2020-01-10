@@ -70,7 +70,9 @@ jobs:
           name: publish package
           command: |
             TAG="release-$(cat packages/version.txt)"
-            echo ${TAG}
+            echo "Tag: ${TAG}"
+            echo "Version: ${VERSION}"
+            VERSION=${TAG}
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} \
             -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} \
             -delete ${VERSION} ${TAG} ./packages
