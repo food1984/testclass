@@ -32,7 +32,7 @@ jobs:
       run: |
         pip install -r test_requirements.txt
         coverage run -m pytest --junitxml=test-results/test-results.xml
-        
+
     - name: Generate reports
       run: |
         coverage report
@@ -45,7 +45,7 @@ jobs:
         VERSION: 1.1.0
       run: |
         echo "CODACY"
-        echo "$VERSION"
+        echo "release-$VERSION"
         python-codacy-coverage -r test-results/coverage.xml
 
     - name: create package
@@ -53,6 +53,8 @@ jobs:
         pip install --user --upgrade setuptools wheel pkutils
         python setup.py sdist bdist_wheel
         python setup.py --version >dist/version.txt
+        VERSION=$(cat dist/version.txt)
+        echo "release--$VERSION"
 
     - name: publish package to github as a release
       id: create_release
@@ -61,7 +63,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         VERSION: 1.1.0
       with:
-        tag_name: release-1.1.0
+        tag_name: "release-$VERSION"
+        release_name: "release-$VERSION"
         body: |
           Changes in this Release
           - First Change
