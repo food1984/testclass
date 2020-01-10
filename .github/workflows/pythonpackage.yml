@@ -54,16 +54,15 @@ jobs:
         python setup.py sdist bdist_wheel
         python setup.py --version >dist/version.txt
 
-    - name: set version
-      run: echo ::set-env name=VERSION::$(cat dist/version.txt)
-
+    - name: set version and release
+      run: |
+        echo ::set-env name=VERSION::$(cat dist/version.txt)
+        echo ::set-env name=RELEASE::release-${{ env.VERSION }}
     - name: test release
-      env:
-        RELEASE: "release-${{ env.VERSION }}"
       run: |
         echo "release: ${{ env.RELEASE }}"
         echo "release2: $RELEASE"
-        
+
     - name: publish package to github as a release
       id: create_release
       uses: actions/create-release@v1
