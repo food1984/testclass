@@ -62,7 +62,7 @@ jobs:
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        RELEASE: "release-${{ env.VERSION }}
+        RELEASE: "release-${{ env.VERSION }}"
       with:
         tag_name: ${{ env.RELEASE }}
         release_name: ${{ env.RELEASE }}
