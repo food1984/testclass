@@ -52,10 +52,17 @@ jobs:
       run: |
         pip install --user --upgrade setuptools wheel pkutils
         python setup.py sdist bdist_wheel
+
+    - name: set variables
+      run: |
         echo ::set-env name=VERSION::$(python setup.py --version)
         echo ::set-env name=RELEASE::release-$(python setup.py --version)
-        echo ::set-env name=ASSET_PATH::./dist/testclass-$(python setup.py --version).tar.gz
-
+        echo ::set-env name=ASSET_PATH::dist/testclass-$(python setup.py --version).tar.gz
+        echo "release: $RELEASE"
+        echo "version: $VERSION"
+        echo "asset: $ASSET_PATH"
+        python setup.py --version
+        
     - name: publish package to github as a release
       id: create_release
       uses: actions/create-release@v1
