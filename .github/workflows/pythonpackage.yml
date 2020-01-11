@@ -57,7 +57,7 @@ jobs:
       run: |
         echo ::set-env name=VERSION::$(python setup.py --version)
         echo ::set-env name=RELEASE::release-$(python setup.py --version)
-        echo ::set-env name=ASSET_PATH::dist/testclass-$(python setup.py --version).tar.gz
+        echo ::set-env name=ASSET_PATH::dist/testclass-$(python setup.py --version)-py3-none-any.whl
 
     - name: publish package to github as a release
       id: create_release
