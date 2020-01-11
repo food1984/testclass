@@ -18,5 +18,6 @@ setup(
       license=module.__license__,
       install_requires=requirements,
       packages=packages,
+      setup_requires=['wheel', 'pkutils'],
       zip_safe=False
       )
