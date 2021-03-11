@@ -53,10 +53,10 @@ jobs:
 
     - name: set variables
       run: |
-        echo ::set-env name=VERSION::$(python setup.py --version)
-        echo ::set-env name=RELEASE::release-$(python setup.py --version)
-        echo ::set-env name=ASSET_PATH::dist/testclass-$(python setup.py --version)-py3-none-any.whl
-        echo ::set-env name=ASSET_NAME::testclass-$(python setup.py --version)-py3-none-any.whl
+        echo "VERSION=$(python setup.py --version)" >> $GITHUB_ENV
+        echo "RELEASE=release-$(python setup.py --version)" >> $GITHUB_ENV
+        echo "ASSET_PATH::dist/testclass-$(python setup.py --version)-py3-none-any.whl" >> $GITHUB_ENV
+        echo "ASSET_NAME=testclass-$(python setup.py --version)-py3-none-any.whl" >> $GITHUB_ENV
 
     - name: create release
       id: create_release
