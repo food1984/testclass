@@ -49,6 +49,9 @@ class TestTestClass(unittest.TestCase):
                 'dataType': 'branded_food', 'foodCategoryId': 0,
                 'publicationDate': '2019-04-01 00:00:00'
             }}]}}}
+
+        test_variables = {'foodVars': {'description': 'This is a test'}}
+
         dir_name = join(abspath(dirname(__file__)), 'files')
         test_name = 'test_one'
         test = TestClass(dir_name, test_name)
@@ -61,7 +64,8 @@ class TestTestClass(unittest.TestCase):
                          "Expected results doesn't match")
         self.assertEqual(test_send, test.get_send_request(),
                          "Send request doesn't match")
-
+        self.assertEqual(test_variables, test.get_variables(),
+                         "Variables don't match")
 
 if __name__ == '__main__':
     unittest.main()

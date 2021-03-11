@@ -21,6 +21,7 @@ class TestClass:
         self.__test_name = test_name
         self.__expected_result = None
         self.__send_request = None
+        self.__variables = None
 
     def get_test_name(self):
         return self.__test_name
@@ -33,6 +34,9 @@ class TestClass:
 
     def get_dir_name(self):
         return self.__dir_name
+
+    def get_variables(self):
+        return self.__variables
 
     def load_files(self):
         for file in glob(join(self.__dir_name, self.__test_name, '*')):
@@ -49,3 +53,7 @@ class TestClass:
 
                 if 'send' in file_name:
                     self.__send_request = temp
+
+                if 'variables' in file_name:
+                    self.__variables = temp
+
