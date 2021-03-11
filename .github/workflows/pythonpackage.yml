@@ -55,7 +55,7 @@ jobs:
       run: |
         echo "VERSION=$(python setup.py --version)" >> $GITHUB_ENV
         echo "RELEASE=release-$(python setup.py --version)" >> $GITHUB_ENV
-        echo "ASSET_PATH::dist/testclass-$(python setup.py --version)-py3-none-any.whl" >> $GITHUB_ENV
+        echo "ASSET_PATH=dist/testclass-$(python setup.py --version)-py3-none-any.whl" >> $GITHUB_ENV
         echo "ASSET_NAME=testclass-$(python setup.py --version)-py3-none-any.whl" >> $GITHUB_ENV
 
     - name: create release
