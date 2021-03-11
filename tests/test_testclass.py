@@ -50,7 +50,10 @@ class TestTestClass(unittest.TestCase):
                 'publicationDate': '2019-04-01 00:00:00'
             }}]}}}
 
-        test_variables = {'foodVars': {'description': 'This is a test'}}
+        test_variables = """{
+  "foodVars": {"description": "This is a test"}
+}
+"""
 
         dir_name = join(abspath(dirname(__file__)), 'files')
         test_name = 'test_one'
