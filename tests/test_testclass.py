@@ -53,6 +53,7 @@ class TestTestClass(unittest.TestCase):
         test_variables = """{
   "foodVars": {"description": "This is a test"}
 }
+
 """
 
         dir_name = join(abspath(dirname(__file__)), 'files')
