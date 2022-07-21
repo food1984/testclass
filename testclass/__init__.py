@@ -1,4 +1,4 @@
-__version__ = '1.2.2'
+__version__ = '1.2.3'
 __title__ = 'testclass'
 __author__ = 'Peter White'
 __description__ = 'Package to help create test modules'
